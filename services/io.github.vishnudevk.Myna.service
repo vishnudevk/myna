@@ -8,7 +8,7 @@ Wants=dbus.socket
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/flatpak run --command=myna-daemon com.canonical.Myna
+ExecStart=/usr/bin/flatpak run --command=myna-daemon io.github.vishnudevk.Myna
 # Restart on failure (matches snap's default restart-condition).
 Restart=on-failure
 RestartSec=1s

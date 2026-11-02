@@ -1,4 +1,4 @@
-id: com.canonical.Myna
+id: io.github.vishnudevk.Myna
 runtime: org.gnome.Platform
 runtime-version: '50'
 sdk: org.gnome.Sdk
@@ -21,8 +21,11 @@ finish-args:
   - --filesystem=xdg-run/pipewire-0
   - --socket=pulseaudio
   - --device=all
-  # IBus text injection and desktop notifications over session bus
-  - --socket=session-bus
+  # D-Bus permissions: dictation daemon ownership, IBus injection, desktop notifications
+  - --own-name=com.canonical.Myna.Dictation
+  - --talk-name=org.freedesktop.IBus
+  - --talk-name=org.freedesktop.IBus.*
+  - --talk-name=org.freedesktop.Notifications
   # Host dconf reading (for keybinding integration)
   - --filesystem=xdg-config/dconf:ro
   # Shared IPC directory for backend and daemon control sockets
@@ -178,9 +181,9 @@ modules:
 
       # ── Application icons ───────────────────────────────────────────────
       - install -Dm644 client/data/icons/hicolor/scalable/apps/com.canonical.Myna.svg
-          /app/share/icons/hicolor/scalable/apps/com.canonical.Myna.svg
+          /app/share/icons/hicolor/scalable/apps/io.github.vishnudevk.Myna.svg
       - install -Dm644 client/data/icons/hicolor/scalable/apps/com.canonical.Myna.Config.svg
-          /app/share/icons/hicolor/scalable/apps/com.canonical.Myna.Config.svg
+          /app/share/icons/hicolor/scalable/apps/io.github.vishnudevk.Myna.Config.svg
 
     sources:
       # Upstream Myna source
@@ -220,14 +223,14 @@ modules:
       - install -Dm755 myna-testbed-wrapper /app/bin/myna-testbed-wrapper
 
       # ── Desktop & AppStream metadata ────────────────────────────────────
-      - install -Dm644 com.canonical.Myna.desktop
-          /app/share/applications/com.canonical.Myna.desktop
-      - install -Dm644 com.canonical.Myna.metainfo.xml
-          /app/share/metainfo/com.canonical.Myna.metainfo.xml
+      - install -Dm644 io.github.vishnudevk.Myna.desktop
+          /app/share/applications/io.github.vishnudevk.Myna.desktop
+      - install -Dm644 io.github.vishnudevk.Myna.metainfo.xml
+          /app/share/metainfo/io.github.vishnudevk.Myna.metainfo.xml
 
       # ── Systemd user service unit ───────────────────────────────────────
-      - install -Dm644 com.canonical.Myna.service
-          /app/share/systemd/user/com.canonical.Myna.service
+      - install -Dm644 io.github.vishnudevk.Myna.service
+          /app/share/systemd/user/io.github.vishnudevk.Myna.service
 
     sources:
       # Packaging helper scripts & integration files
@@ -242,8 +245,8 @@ modules:
       - type: file
         path: scripts/myna-testbed-wrapper
       - type: file
-        path: com.canonical.Myna.desktop
+        path: io.github.vishnudevk.Myna.desktop
       - type: file
-        path: com.canonical.Myna.metainfo.xml
+        path: io.github.vishnudevk.Myna.metainfo.xml
       - type: file
-        path: services/com.canonical.Myna.service
+        path: services/io.github.vishnudevk.Myna.service

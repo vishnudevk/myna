@@ -13,9 +13,9 @@ on [Flathub](https://flathub.org) and used on distributions other than Ubuntu.
 
 | Flatpak ID | What it is |
 |---|---|
-| `com.canonical.Myna` | Client app (Rust): daemon, HUD overlay, testbed CLI |
-| `com.canonical.Myna.Whisper` | Whisper inference backend (faster-whisper / CTranslate2) |
-| `com.canonical.Myna.Parakeet` | Parakeet TDT 0.6B v3 inference backend (onnxruntime) |
+| `io.github.vishnudevk.Myna` | Client app & bundled Whisper backend (Flathub package) |
+| `com.canonical.Myna.Whisper` | Whisper inference backend (standalone faster-whisper / CTranslate2) |
+| `com.canonical.Myna.Parakeet` | Parakeet TDT 0.6B v3 inference backend (standalone onnxruntime) |
 
 Model weights and GPU runtime ship as **Flatpak extensions**
 (equivalent to snap components):
@@ -64,7 +64,7 @@ read-only mount at a declared directory inside the app's `/app/extensions/`.
 
 ### All-in-One Flatpak with Bundled Whisper Backend
 
-`com.canonical.Myna` bundles both the client (Rust UI, dictation daemon, HUD, status) and the inference backend (`faster-whisper` CTranslate2 Python server). When launched, `myna-app`:
+`io.github.vishnudevk.Myna` bundles both the client (Rust UI, dictation daemon, HUD, status) and the inference backend (`faster-whisper` CTranslate2 Python server). When launched, `myna-app`:
 
 1. Starts `myna-whisper-server` in the background (if not already running).
 2. Starts `myna-daemon` in the background (if not already running).
@@ -72,18 +72,18 @@ read-only mount at a declared directory inside the app's `/app/extensions/`.
 
 ### Offline & First-Run Model Provisioning
 
-Models (such as `base` or `tiny`) are stored in `$XDG_DATA_HOME/myna/models/` (`~/.var/app/com.canonical.Myna/data/myna/models/`). If no weights exist on first run, `myna-whisper-server` automatically downloads the default model from Hugging Face via `myna-download-model`. Model sizes can also be manually downloaded with:
+Models (such as `base` or `tiny`) are stored in `$XDG_DATA_HOME/myna/models/` (`~/.var/app/io.github.vishnudevk.Myna/data/myna/models/`). If no weights exist on first run, `myna-whisper-server` automatically downloads the default model from Hugging Face via `myna-download-model`. Model sizes can also be manually downloaded with:
 
 ```sh
-flatpak run --command=myna-download-model com.canonical.Myna <tiny|base|small|large-v3|large-v3-turbo>
+flatpak run --command=myna-download-model io.github.vishnudevk.Myna <tiny|base|small|large-v3|large-v3-turbo>
 ```
 
 ### Daemon lifecycle: snap user daemon → systemd user service / auto-launch
 
-The Myna desktop entry runs `myna-app`, which supervises both the daemon and backend. Alternatively, the systemd **user service** installed at `/app/share/systemd/user/com.canonical.Myna.service` can be enabled to run Myna at login:
+The Myna desktop entry runs `myna-app`, which supervises both the daemon and backend. Alternatively, the systemd **user service** installed at `/app/share/systemd/user/io.github.vishnudevk.Myna.service` can be enabled to run Myna at login:
 
 ```sh
-systemctl --user enable --now com.canonical.Myna.service
+systemctl --user enable --now io.github.vishnudevk.Myna.service
 ```
 
 ---
@@ -138,14 +138,14 @@ scripts/container-shell.sh
 scripts/container-bundle.sh
 ```
 
-The bundle is written to `dist/com.canonical.Myna.flatpak`.
+The bundle is written to `dist/io.github.vishnudevk.Myna.flatpak`.
 
 ### GitHub Actions
 
 GitHub Actions builds and tests every pull request and `main` push using the
 same Podman entry points. The workflow is defined in
-[.github/workflows/build.yml](.github/workflows/build.yml) and uploads
-`dist/com.canonical.Myna.flatpak` as a build artifact.
+[.github/workflows/ci.yml](.github/workflows/ci.yml) and uploads
+`dist/io.github.vishnudevk.Myna.flatpak` as a release artifact.
 
 ### Existing wrapper
 
@@ -168,7 +168,7 @@ Agent instructions are in [AGENTS.md](AGENTS.md). In short:
 
 ### ✅ What is Done & Working
 
-- **All-in-One Flatpak (`com.canonical.Myna`):**
+- **All-in-One Flatpak (`io.github.vishnudevk.Myna`):**
   - Bundles the complete client stack: dictation daemon (`myna-desktop`), GTK4 settings UI (`myna-config`), HUD overlay (`myna-hud`), and testbed (`myna-testbed`).
   - Bundles the offline Whisper Speech-to-Text inference server (`faster-whisper` CTranslate2 Python runtime).
 - **Build Performance & Caching:**
@@ -183,7 +183,7 @@ Agent instructions are in [AGENTS.md](AGENTS.md). In short:
 - **Audio & Text Injection:**
   - Native PipeWire audio streaming and IBus direct text injection tested and working end-to-end with USB and built-in microphones.
   - Automatic model downloading (`myna-download-model`) on first run.
-  - Hotkey toggling via `flatpak run com.canonical.Myna myna-toggle` or `flatpak run --command=myna-toggle com.canonical.Myna`.
+  - Hotkey toggling via `flatpak run io.github.vishnudevk.Myna myna-toggle` or `flatpak run --command=myna-toggle io.github.vishnudevk.Myna`.
 
 ### ⏳ Pending & Known Considerations
 
