@@ -6,7 +6,7 @@ on:
       - "v*"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: release-${{ github.ref }}
@@ -85,3 +85,27 @@ jobs:
 
       - name: Run Flatpak integration tests
         run: scripts/container-integration.sh
+
+  publish-release:
+    name: Publish GitHub Release
+    needs: integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download Flatpak bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: myna-flatpak
+          path: dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/io.github.vishnudevk.Myna.flatpak
+          generate_release_notes: true
