@@ -1,7 +1,7 @@
 # myna-flatpak
 
-Flatpak packaging for [Myna](https://github.com/canonical/myna) — local,
-offline speech-to-text for the Linux desktop.
+An unofficial Flatpak port of Canonical's [Myna](https://github.com/canonical/myna)
+app — local, offline speech-to-text for the Linux desktop.
 
 Myna is developed and distributed by Canonical as a set of **snap** packages.
 This repo ports that packaging to **Flatpak** so Myna can be distributed
