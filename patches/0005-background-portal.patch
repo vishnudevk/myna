@@ -3,7 +3,7 @@ new file mode 100644
 index 00000000..58b0358b
 --- /dev/null
 +++ b/client/myna-desktop/src/dbus/background.rs
-@@ -0,0 +1,108 @@
+@@ -0,0 +1,112 @@
 +//! Background-portal registration for the daemon.
 +//!
 +//! GNOME's background-apps list is identity-based, not process-based. A
@@ -95,6 +95,10 @@ index 00000000..58b0358b
 +            return;
 +        }
 +    };
++    // The response stream must not outlive the request. Keeping it alive while
++    // SetStatus refreshes forever can stop the same connection's object server
++    // from dispatching Toggle and property calls.
++    drop(stream);
 +    myna_core::info_log!("dbus", "background request response {code} ({results:?})");
 +    if code != 0 {
 +        return;
