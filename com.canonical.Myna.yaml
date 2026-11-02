@@ -71,7 +71,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/canonical/myna.git
-        commit: f9ddecc8888815e3a732b7b40071e552bab02bab
+        commit: eaae43392f9ee52d435135946587abfad98fef54
       - type: file
         path: scripts/whisper-server
       - type: file
@@ -144,7 +144,7 @@ modules:
 
       # ── Version staging ─────────────────────────────────────────────────
       # Avoid depending on git rev-parse during sandbox build
-      - echo "0.3.0+git12.f9ddecc8" > client/.version
+      - echo "0.3.1+git8.eaae4339" > client/.version
 
       # ── Unified Workspace Cargo build (offline, parallel, shared target) 
       - cargo build --release --locked --manifest-path client/Cargo.toml -p myna-desktop -p myna-cli -p myna-hud -p myna-config
@@ -186,7 +186,7 @@ modules:
       # Upstream Myna source
       - type: git
         url: https://github.com/canonical/myna.git
-        commit: f9ddecc8888815e3a732b7b40071e552bab02bab
+        commit: eaae43392f9ee52d435135946587abfad98fef54
       - type: patch
         path: patches/0001-flatpak-backend-support.patch
       - type: patch

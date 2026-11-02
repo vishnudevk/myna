@@ -29,9 +29,9 @@
   </developer>
   <content_rating type="oars-1.1" />
   <releases>
-    <release version="0.3.0+git12.f9ddecc8" date="2026-10-29">
+    <release version="0.3.1+git8.eaae4339" date="2026-11-02">
       <description>
-        <p>Initial Flatpak packaging of Myna.</p>
+        <p>Update Myna to upstream 0.3.1, including vocabulary controls and Parakeet keyword improvements.</p>
       </description>
     </release>
   </releases>
