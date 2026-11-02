@@ -1,3 +1,50 @@
+diff --git a/client/myna-config/src/shortcut.rs b/client/myna-config/src/shortcut.rs
+index 47e8c60c..ddd874af 100644
+--- a/client/myna-config/src/shortcut.rs
++++ b/client/myna-config/src/shortcut.rs
+@@ -8,7 +8,8 @@ pub const DEFAULT_ACCELERATOR: &str = "<Super>j";
+ 
+ /// What the shortcut runs: the daemon's `Toggle`, with no `snap run` startup
+ /// in the way.
+-pub const TOGGLE_COMMAND: &str = "gdbus call --session --dest com.canonical.Myna.Dictation \
++pub const TOGGLE_COMMAND: &str = "flatpak run io.github.vishnudevk.Myna myna-toggle";
++pub const LEGACY_TOGGLE_COMMAND: &str = "gdbus call --session --dest com.canonical.Myna.Dictation \
+      --object-path /com/canonical/Myna/Dictation --method com.canonical.Myna.Dictation.Toggle";
+ 
+ /// The command for a daemon that publishes `Shortcut`, which only daemons
+@@ -27,13 +28,21 @@ pub fn command(legacy: bool) -> String {
+ /// --toggle`. A desktop that stores no name for a shortcut is searched by it.
+ pub fn is_toggle_command(command: &str) -> bool {
+     let command = command.trim();
+-    if command == TOGGLE_COMMAND {
++    if command == TOGGLE_COMMAND || command == LEGACY_TOGGLE_COMMAND {
+         return true;
+     }
+     let mut words = command.split_whitespace();
+     let (Some(program), arguments) = (words.next(), words.collect::<Vec<_>>()) else {
+         return false;
+     };
++    let flatpak_app = (program == "flatpak" || program.ends_with("/flatpak"))
++        && arguments.contains(&"io.github.vishnudevk.Myna")
++        && (arguments.contains(&"myna-toggle")
++            || arguments.contains(&"--toggle")
++            || arguments.contains(&"--command=myna-toggle"));
++    if flatpak_app {
++        return true;
++    }
+     let snap_app = arguments.is_empty()
+         && program
+             .strip_prefix("/snap/bin/")
+@@ -138,6 +147,9 @@ mod tests {
+     fn only_myna_toggle_commands_are_recognised() {
+         for ours in [
+             TOGGLE_COMMAND,
++            LEGACY_TOGGLE_COMMAND,
++            "flatpak run io.github.vishnudevk.Myna myna-toggle",
++            "flatpak run --command=myna-toggle io.github.vishnudevk.Myna",
+             "/snap/bin/myna.toggle",
+             "/snap/bin/myna_dev.toggle",
+             "/usr/bin/myna-desktop --toggle",
 diff --git a/client/myna-config/src/shortcut_ui.rs b/client/myna-config/src/shortcut_ui.rs
 index 9825d517..49694eec 100644
 --- a/client/myna-config/src/shortcut_ui.rs
