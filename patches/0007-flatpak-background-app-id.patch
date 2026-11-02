@@ -7,7 +7,7 @@ index 1b401507..822448cb 100644
  pub mod shortcut;
 
 -pub const APP_ID: &str = "com.canonical.Myna.Config";
-+pub const APP_ID: &str = "com.canonical.Myna";
++pub const APP_ID: &str = "io.github.vishnudevk.Myna";
  pub const GETTEXT_DOMAIN: &str = "myna-config";
  pub const USAGE: &str = "\
  Usage: myna-config [OPTION]
@@ -20,7 +20,7 @@ index 8fd0e80b..38413d92 100644
  #[test]
  fn application_identity_is_stable() {
 -    assert_eq!(APP_ID, "com.canonical.Myna.Config");
-+    assert_eq!(APP_ID, "com.canonical.Myna");
++    assert_eq!(APP_ID, "io.github.vishnudevk.Myna");
      assert_eq!(GETTEXT_DOMAIN, "myna-config");
  }
 @@ -42,9 +42,11 @@ fn appstream_metadata_names_the_application_and_validates() {

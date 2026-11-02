@@ -76,7 +76,7 @@ podman run \
         --repo=repo \
         --force-clean \
         build-dir \
-        com.canonical.Myna.yaml
+        io.github.vishnudevk.Myna.yaml
 
 echo "==> Flatpak build complete."
 echo "==> Local repository: $PROJECT_ROOT/repo"

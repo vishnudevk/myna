@@ -6,7 +6,7 @@ chmod 700 /run/user/0
 export XDG_RUNTIME_DIR=/run/user/0
 export MYNA_WHISPER_MODEL=tiny
 
-BUNDLE=/work/dist/com.canonical.Myna.flatpak
+BUNDLE=/work/dist/io.github.vishnudevk.Myna.flatpak
 TEST_WAV=/tmp/myna-hello.wav
 TRANSCRIPT_LOG=/tmp/myna-transcript.log
 STATUS_LOG=/tmp/myna-status.log
@@ -21,7 +21,7 @@ flatpak --system install \
     "$BUNDLE"
 
 echo "==> Downloading the tiny Whisper model"
-flatpak run --command=myna-download-model com.canonical.Myna tiny
+flatpak run --command=myna-download-model io.github.vishnudevk.Myna tiny
 
 echo "==> Starting PipeWire and WirePlumber"
 echo "==> Starting D-Bus session"
@@ -57,11 +57,11 @@ espeak-ng \
     "Hello, how are you?"
 
 echo "==> Starting the Myna daemon"
-flatpak run --command=myna-daemon com.canonical.Myna \
+flatpak run --command=myna-daemon io.github.vishnudevk.Myna \
     >/tmp/myna-daemon.log 2>&1 &
 
 for _ in {1..30}; do
-    flatpak run --command=myna-status com.canonical.Myna \
+    flatpak run --command=myna-status io.github.vishnudevk.Myna \
         >"$STATUS_LOG" 2>&1 || true
     if grep -q 'whisper-tiny' "$STATUS_LOG"; then
         break
@@ -89,7 +89,7 @@ pw-cat --playback --target myna-test-feed "$TEST_WAV" \
     sleep 5
 ) | timeout 30 flatpak run \
     --command=myna-testbed-wrapper \
-    com.canonical.Myna \
+    io.github.vishnudevk.Myna \
     --mic \
     --target myna-test-source \
     | tee "$TRANSCRIPT_LOG"

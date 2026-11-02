@@ -54,6 +54,8 @@ podman run \
         bash scripts/test-myna-app-lifecycle.sh
         bash scripts/test-whisper-server-defaults.sh
         python3 -c "import glob, sys, yaml; [yaml.safe_load(open(path)) for path in glob.glob(sys.argv[1])]" ".github/workflows/*.yml"
+        python3 -c "import yaml; yaml.safe_load(open(\"io.github.vishnudevk.Myna.yaml\"))"
+        appstreamcli validate --no-net io.github.vishnudevk.Myna.metainfo.xml
         python3 -m compileall -q tools
         git diff --check
     '

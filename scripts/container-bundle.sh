@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 IMAGE="${MYNA_FLATPAK_BUILDER_IMAGE:-localhost/myna-flatpak-builder:latest}"
-BUNDLE_PATH="${MYNA_FLATPAK_BUNDLE:-dist/com.canonical.Myna.flatpak}"
+BUNDLE_PATH="${MYNA_FLATPAK_BUNDLE:-dist/io.github.vishnudevk.Myna.flatpak}"
 
 usage() {
     echo "Usage: $0"
@@ -57,7 +57,7 @@ podman run \
             --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
             repo \
             "$BUNDLE_PATH" \
-            com.canonical.Myna
+            io.github.vishnudevk.Myna
     '
 
 echo "==> Flatpak bundle complete: $PROJECT_ROOT/$BUNDLE_PATH"
