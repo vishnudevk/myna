@@ -116,6 +116,16 @@ Build output is written to `repo/`.
 scripts/container-test.sh
 ```
 
+### Release
+
+Pull requests and pushes to `main` run tests only. Installable Flatpak bundles
+are built only when a version tag matching `v*` is pushed:
+
+```sh
+git tag -a v0.3.1 -m "Myna Flatpak 0.3.1"
+git push origin v0.3.1
+```
+
 ### Interactive shell
 
 ```sh

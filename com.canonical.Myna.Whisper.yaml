@@ -59,7 +59,7 @@ modules:
       # Upstream Myna repo containing server/
       - type: git
         url: https://github.com/canonical/myna.git
-        commit: eaae43392f9ee52d435135946587abfad98fef54
+        commit: bc2eaff061062efcb296318f2efee84dc8ba4f19
 
       # Packaging integration files
       - type: file

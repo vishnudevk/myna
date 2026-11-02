@@ -55,7 +55,7 @@ podman run \
     bash -ceu '
         rm -rf .tmp/myna-src
         git clone -q https://github.com/canonical/myna.git .tmp/myna-src
-        git -C .tmp/myna-src checkout -q eaae43392f9ee52d435135946587abfad98fef54
+        git -C .tmp/myna-src checkout -q bc2eaff061062efcb296318f2efee84dc8ba4f19
         for patch in /work/patches/*.patch; do
             patch -d .tmp/myna-src -p1 < "$patch"
         done
