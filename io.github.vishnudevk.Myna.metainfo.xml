@@ -23,14 +23,14 @@
   </description>
   <launchable type="desktop-id">io.github.vishnudevk.Myna.desktop</launchable>
   <url type="homepage">https://github.com/canonical/myna</url>
-  <url type="bugtracker">https://github.com/vishnudevk/myna-flatpak/issues</url>
-  <url type="vcs-browser">https://github.com/vishnudevk/myna-flatpak</url>
+  <url type="bugtracker">https://github.com/vishnudevk/myna/issues</url>
+  <url type="vcs-browser">https://github.com/vishnudevk/myna</url>
   <developer id="io.github.vishnudevk">
     <name>Vishnu Dev (Community Maintainer)</name>
   </developer>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/vishnudevk/myna-flatpak/main/data/screenshots/myna-settings.png</image>
+      <image>https://raw.githubusercontent.com/vishnudevk/myna/main/data/screenshots/myna-settings.png</image>
       <caption>Myna Settings and dictation overlay</caption>
     </screenshot>
   </screenshots>
