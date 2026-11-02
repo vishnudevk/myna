@@ -3,7 +3,7 @@ new file mode 100644
 index 00000000..e5671f1f
 --- /dev/null
 +++ b/client/myna-config/src/adapters/flatpak_backend.rs
-@@ -0,0 +1,340 @@
+@@ -0,0 +1,325 @@
 +//! Backend repository and system configurator for Flatpak and standalone environments.
 +//!
 +//! Unlike Ubuntu Snap which uses snapd over a Unix domain socket (/run/snapd.socket)
@@ -34,23 +34,9 @@ index 00000000..e5671f1f
 +
 +impl FlatpakBackendRepository {
 +    pub fn new() -> Self {
-+        ensure_backend_started();
++        // myna-app and myna-daemon own backend startup. Starting it here as
++        // well races with them while the Whisper socket is being created.
 +        Self
-+    }
-+}
-+
-+fn ensure_backend_started() {
-+    let runtime_dir = std::env::var("XDG_RUNTIME_DIR")
-+        .map(PathBuf::from)
-+        .unwrap_or_else(|_| PathBuf::from("/tmp"));
-+    let whisper_socket = runtime_dir.join("myna/whisper/myna.sock");
-+
-+    if !whisper_socket.exists() {
-+        if let Ok(server_path) = std::env::var("MYNA_WHISPER_SERVER") {
-+            let _ = Command::new(server_path).spawn();
-+        } else if std::path::Path::new("/app/bin/myna-whisper-server").exists() {
-+            let _ = Command::new("/app/bin/myna-whisper-server").spawn();
-+        }
 +    }
 +}
 +
@@ -324,7 +310,6 @@ index 00000000..e5671f1f
 +        _plan: &SetUpPlan,
 +        _cancellation: CancellationToken,
 +    ) -> Result<(), SystemConfiguratorError> {
-+        ensure_backend_started();
 +        Ok(())
 +    }
 +

@@ -199,6 +199,8 @@ modules:
         path: patches/0005-background-portal.patch
       - type: patch
         path: patches/0006-server-process-name.patch
+      - type: patch
+        path: patches/0007-flatpak-background-app-id.patch
 
       # Vendored Cargo crates (517 crates, checksum-verified)
       - cargo-sources.json

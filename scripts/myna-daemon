@@ -28,6 +28,23 @@
 #
 set -eu
 
+socket_listening() {
+    target="$1"
+    [ -S "$target" ] || return 1
+    python3 -c '
+import socket
+import sys
+
+client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+try:
+    client.connect(sys.argv[1])
+except OSError:
+    sys.exit(1)
+finally:
+    client.close()
+' "$target"
+}
+
 if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
     exec /app/bin/myna-desktop --help
 fi
@@ -37,7 +54,8 @@ mkdir -p "$BACKEND_DIR"
 
 WHISPER_SOCKET="${BACKEND_DIR}/whisper/myna.sock"
 if [ -x /app/bin/myna-whisper-server ]; then
-    if [ ! -S "$WHISPER_SOCKET" ]; then
+    if ! socket_listening "$WHISPER_SOCKET"; then
+        rm -f "$WHISPER_SOCKET"
         echo "myna-daemon: launching bundled Whisper backend..." >&2
         /app/bin/myna-whisper-server >/dev/null 2>&1 &
     fi

@@ -57,7 +57,7 @@ podman run \
         git clone -q https://github.com/canonical/myna.git .tmp/myna-src
         git -C .tmp/myna-src checkout -q f9ddecc8888815e3a732b7b40071e552bab02bab
         for patch in /work/patches/*.patch; do
-            git -C .tmp/myna-src apply "$patch"
+            patch -d .tmp/myna-src -p1 < "$patch"
         done
         cargo test --locked --all --manifest-path .tmp/myna-src/client/Cargo.toml -- \
             --skip the_hud_hosts_itself_on_x11 \
