@@ -1,11 +1,48 @@
-# myna-flatpak
+# Myna (Flatpak)
 
-An unofficial Flatpak port of Canonical's [Myna](https://github.com/canonical/myna)
-app — local, offline speech-to-text for the Linux desktop.
+<p align="center">
+  <img src="https://flatpak.org/img/favicon.svg" width="96" height="96" alt="Flatpak Logo" />
+</p>
+
+<p align="center">
+  <b>An unofficial Flatpak port of Canonical's <a href="https://github.com/canonical/myna">Myna</a></b><br>
+  Fast, local, offline speech-to-text dictation for the Linux desktop.
+</p>
+
+<p align="center">
+  <a href="https://github.com/vishnudevk/myna/releases/latest/download/io.github.vishnudevk.Myna.flatpak">
+    <img src="https://img.shields.io/badge/Download-Latest_.flatpak-4a90e2?style=for-the-badge&logo=flatpak&logoColor=white" alt="Download Latest Flatpak" />
+  </a>
+  <a href="https://github.com/flathub/flathub/pull/10992">
+    <img src="https://img.shields.io/badge/Flathub-PR%20%2310992-4a90e2?style=for-the-badge&logo=flathub&logoColor=white" alt="Flathub Submission" />
+  </a>
+  <a href="https://github.com/vishnudevk/myna/releases/latest">
+    <img src="https://img.shields.io/github/v/release/vishnudevk/myna?style=for-the-badge&logo=github&color=24292e" alt="GitHub Release" />
+  </a>
+</p>
+
+---
+
+### Quick Install
+
+Download and install the standalone `.flatpak` bundle directly:
+
+```sh
+# 1. Download the latest bundle
+curl -LO https://github.com/vishnudevk/myna/releases/latest/download/io.github.vishnudevk.Myna.flatpak
+
+# 2. Install
+flatpak install --user io.github.vishnudevk.Myna.flatpak
+
+# 3. Launch
+flatpak run io.github.vishnudevk.Myna
+```
+
+---
 
 Myna is developed and distributed by Canonical as a set of **snap** packages.
-This repo ports that packaging to **Flatpak** so Myna can be distributed
-on [Flathub](https://flathub.org) and used on distributions other than Ubuntu.
+This repository ports that packaging to **Flatpak** so Myna can be distributed
+on [Flathub](https://flathub.org) and used on any Linux distribution without Snap.
 
 ---
 
