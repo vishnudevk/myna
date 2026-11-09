@@ -33,6 +33,16 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.3.1-3" date="2026-11-09">
+      <description>
+        <p>Harden runtime sandbox permissions (offline dictation, PipeWire-only audio, DRI-only device access) and publish SHA-256 release checksums.</p>
+      </description>
+    </release>
+    <release version="0.3.1-2" date="2026-11-09">
+      <description>
+        <p>Update upstream Myna to commit 087105e1 and support GNOME 51 with Python 3.14.</p>
+      </description>
+    </release>
     <release version="0.3.1-1" date="2026-11-02">
       <description>
         <p>Port to io.github.vishnudevk.Myna App ID for Flathub submission with simplified flatpak toggle shortcut command.</p>
