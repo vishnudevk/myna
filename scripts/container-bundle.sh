@@ -58,6 +58,8 @@ podman run \
             repo \
             "$BUNDLE_PATH" \
             io.github.vishnudevk.Myna
+        (cd "$(dirname "$BUNDLE_PATH")" && sha256sum "$(basename "$BUNDLE_PATH")" > SHA256SUMS)
     '
 
 echo "==> Flatpak bundle complete: $PROJECT_ROOT/$BUNDLE_PATH"
+echo "==> Bundle SHA256 checksum generated: $PROJECT_ROOT/$(dirname "$BUNDLE_PATH")/SHA256SUMS"

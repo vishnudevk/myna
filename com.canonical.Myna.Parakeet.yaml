@@ -7,10 +7,9 @@ command: myna-parakeet-server
 # ─── Permissions ───────────────────────────────────────────────────────────
 # Same policy as the Whisper backend: no audio hardware access.
 finish-args:
-  - --socket=session-bus
   - --filesystem=xdg-run/myna:create
-  # /sys + /proc for ONNX Runtime CPU topology / cgroup quota
-  - --device=all
+  # /dev/dri for ONNX Runtime GPU acceleration; no raw host device access
+  - --device=dri
 
 build-options:
   env:

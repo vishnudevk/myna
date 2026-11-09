@@ -20,8 +20,8 @@ flatpak --system install \
     --reinstall \
     "$BUNDLE"
 
-echo "==> Downloading the tiny Whisper model"
-flatpak run --command=myna-download-model io.github.vishnudevk.Myna tiny
+echo "==> Downloading the tiny Whisper model (explicit network permission)"
+flatpak run --share=network --command=myna-download-model io.github.vishnudevk.Myna tiny
 
 echo "==> Starting PipeWire and WirePlumber"
 echo "==> Starting D-Bus session"

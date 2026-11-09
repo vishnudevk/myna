@@ -11,9 +11,7 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --share=ipc
-  - --share=network
   - --filesystem=xdg-run/pipewire-0:ro
-  - --socket=pulseaudio
   - --device=dri
   - --own-name=com.canonical.Myna.Dictation
   - --talk-name=org.freedesktop.IBus

@@ -55,6 +55,8 @@ else
         MODEL_DIR="$USER_DATA_DIR"
     else
         echo "myna-whisper: failed to download model '$MODEL'." >&2
+        echo "myna-whisper: please download model weights with network permission:" >&2
+        echo "  flatpak run --share=network --command=myna-download-model io.github.vishnudevk.Myna $MODEL" >&2
         exit 1
     fi
 fi

@@ -8,11 +8,10 @@ command: myna-whisper-server
 # The inference backend has NO microphone access and NO display access.
 # Audio arrives as PCM pushed over the shared Unix socket by the client.
 finish-args:
-  - --socket=session-bus
   # Shared IPC directory: same path the client uses
   - --filesystem=xdg-run/myna:create
-  # /sys and /proc reads for CPU topology and cgroup quota
-  - --device=all
+  # /dev/dri for GPU acceleration (CTranslate2 CUDA); no raw host device access
+  - --device=dri
 
 build-options:
   env:

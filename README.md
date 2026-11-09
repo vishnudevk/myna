@@ -28,13 +28,20 @@
 Download and install the standalone `.flatpak` bundle directly:
 
 ```sh
-# 1. Download the latest bundle
+# 1. Download the latest bundle and its SHA-256 checksums
 curl -LO https://github.com/vishnudevk/myna/releases/latest/download/io.github.vishnudevk.Myna.flatpak
+curl -LO https://github.com/vishnudevk/myna/releases/latest/download/SHA256SUMS
 
-# 2. Install
+# 2. Verify bundle integrity and provenance
+sha256sum --check --ignore-missing SHA256SUMS
+
+# 3. Install the verified bundle
 flatpak install --user io.github.vishnudevk.Myna.flatpak
 
-# 3. Launch
+# 4. Provision initial Whisper model (requires explicit network permission)
+flatpak run --share=network --command=myna-download-model io.github.vishnudevk.Myna base
+
+# 5. Launch (runs 100% offline with zero network access)
 flatpak run io.github.vishnudevk.Myna
 ```
 
@@ -109,11 +116,21 @@ read-only mount at a declared directory inside the app's `/app/extensions/`.
 
 ### Offline & First-Run Model Provisioning
 
-Models (such as `base` or `tiny`) are stored in `$XDG_DATA_HOME/myna/models/` (`~/.var/app/io.github.vishnudevk.Myna/data/myna/models/`). If no weights exist on first run, `myna-whisper-server` automatically downloads the default model from Hugging Face via `myna-download-model`. Model sizes can also be manually downloaded with:
+Models (such as `base` or `tiny`) are stored in `$XDG_DATA_HOME/myna/models/` (`~/.var/app/io.github.vishnudevk.Myna/data/myna/models/`). For privacy and security, Myna operates with zero network access by default. Model weights can be downloaded on-demand with explicit network permission:
 
 ```sh
-flatpak run --command=myna-download-model io.github.vishnudevk.Myna <tiny|base|small|large-v3|large-v3-turbo>
+flatpak run --share=network --command=myna-download-model io.github.vishnudevk.Myna <tiny|base|small|large-v3|large-v3-turbo>
 ```
+
+### Security & Least-Privilege Sandboxing Policy
+
+Myna is packaged following strict least-privilege sandboxing principles:
+
+- **Zero Network Access during Dictation**: The Flatpak runtime does not declare `--share=network`. Speech processing and transcription run strictly offline, preventing any audio or text exfiltration. Model downloads require explicit on-demand `--share=network`.
+- **Restricted Audio Pipeline**: Microphone capture connects to a read-only PipeWire socket (`--filesystem=xdg-run/pipewire-0:ro`). Legacy PulseAudio access (`--socket=pulseaudio`) is completely disabled.
+- **Hardware Acceleration**: GPU access is restricted to Direct Rendering Infrastructure (`--device=dri`); broad host device access (`--device=all`) is forbidden.
+- **Scoped IPC**: Sockets are isolated to `xdg-run/myna` rather than unconstrained host runtime directories.
+- **Cryptographic Release Verification**: Standalone `.flatpak` release bundles are published alongside `SHA256SUMS` on GitHub Releases for verification before installation.
 
 ### Daemon lifecycle: snap user daemon → systemd user service / auto-launch
 
