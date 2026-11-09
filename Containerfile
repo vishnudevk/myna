@@ -52,8 +52,8 @@ RUN flatpak remote-add --system --if-not-exists flathub \
         flathub \
         org.gnome.Platform//51 \
         org.gnome.Sdk//51 \
-        org.freedesktop.Sdk.Extension.rust-stable//25.08 \
-        org.freedesktop.Sdk.Extension.llvm20//25.08
+        org.freedesktop.Sdk.Extension.rust-stable//26.08 \
+        org.freedesktop.Sdk.Extension.llvm22//26.08
 
 WORKDIR /work
 

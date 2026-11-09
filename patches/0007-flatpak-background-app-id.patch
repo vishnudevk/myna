@@ -1,10 +1,10 @@
 diff --git a/client/myna-config/src/lib.rs b/client/myna-config/src/lib.rs
-index 1b401507..822448cb 100644
+index 26f5c981..c873f1c7 100644
 --- a/client/myna-config/src/lib.rs
 +++ b/client/myna-config/src/lib.rs
-@@ -33,7 +33,7 @@ pub mod ports;
- pub mod presentation;
- pub mod shortcut;
+@@ -33,7 +33,7 @@ pub mod snap_install;
+ pub mod sound_preview;
+ pub mod ui;
 
 -pub const APP_ID: &str = "com.canonical.Myna.Config";
 +pub const APP_ID: &str = "io.github.vishnudevk.Myna";
@@ -12,10 +12,10 @@ index 1b401507..822448cb 100644
  pub const USAGE: &str = "\
  Usage: myna-config [OPTION]
 diff --git a/client/myna-config/tests/application_contract.rs b/client/myna-config/tests/application_contract.rs
-index 8fd0e80b..38413d92 100644
+index a7b523b4..8f1ee8f4 100644
 --- a/client/myna-config/tests/application_contract.rs
 +++ b/client/myna-config/tests/application_contract.rs
-@@ -4,6 +4,6 @@ use myna_config::{parse_args, Command, APP_ID, GETTEXT_DOMAIN};
+@@ -4,7 +4,7 @@ use myna_config::{parse_args, Command, APP_ID, GETTEXT_DOMAIN};
 
  #[test]
  fn application_identity_is_stable() {
@@ -23,7 +23,9 @@ index 8fd0e80b..38413d92 100644
 +    assert_eq!(APP_ID, "io.github.vishnudevk.Myna");
      assert_eq!(GETTEXT_DOMAIN, "myna-config");
  }
-@@ -42,9 +42,11 @@ fn appstream_metadata_names_the_application_and_validates() {
+
+@@ -41,10 +41,12 @@ fn appstream_metadata_names_the_application_and_validates() {
+         "/data/com.canonical.Myna.Config.metainfo.xml"
      );
      let metainfo = std::fs::read_to_string(path).expect("metainfo");
 -    assert!(metainfo.contains(&format!("<id>{APP_ID}</id>")));

@@ -4,7 +4,7 @@ runtime-version: '51'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
-  - org.freedesktop.Sdk.Extension.llvm20
+  - org.freedesktop.Sdk.Extension.llvm22
 command: myna-app
 
 finish-args:
@@ -31,8 +31,8 @@ modules:
   - name: myna-server
     buildsystem: simple
     build-commands:
-      - mkdir -p /app/lib/python3.13/site-packages
-      - cp -r server/src/myna /app/lib/python3.13/site-packages/
+      - mkdir -p /app/lib/python3.14/site-packages
+      - cp -r server/src/myna /app/lib/python3.14/site-packages/
       - install -Dm755 myna-server-cli      /app/bin/myna-server
       - install -Dm755 whisper-server       /app/bin/myna-whisper-server
       - install -Dm755 myna-download-model  /app/bin/myna-download-model
@@ -40,7 +40,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/canonical/myna.git
-        commit: bc2eaff061062efcb296318f2efee84dc8ba4f19
+        commit: 087105e1c46ee8e29380279ae3023cb1c48e92e3
       - type: file
         path: scripts/myna-server-cli
       - type: file
@@ -67,11 +67,11 @@ modules:
   - name: myna
     buildsystem: simple
     build-options:
-      append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm20/bin
+      append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm22/bin
       env:
         CARGO_HOME: /run/build/myna/cargo
         RUST_BACKTRACE: '1'
-        LIBCLANG_PATH: /usr/lib/sdk/llvm20/lib
+        LIBCLANG_PATH: /usr/lib/sdk/llvm22/lib
         SPA_PLUGIN_DIR: /usr/lib/x86_64-linux-gnu/spa-0.2
         PIPEWIRE_MODULE_DIR: /usr/lib/x86_64-linux-gnu/pipewire-0.3
     build-commands:
@@ -97,7 +97,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/canonical/myna.git
-        commit: bc2eaff061062efcb296318f2efee84dc8ba4f19
+        commit: 087105e1c46ee8e29380279ae3023cb1c48e92e3
       - type: patch
         path: patches/0001-flatpak-backend-support.patch
       - type: patch
