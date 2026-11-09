@@ -1,0 +1,15 @@
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "cargo/vendor"
+
+[build]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[profile.release]
+opt-level = 3
+codegen-units = 16
+lto = "thin"
+debug = 0
+

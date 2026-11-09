@@ -17,9 +17,6 @@
       This Flatpak bundle includes the default faster-whisper inference server
       and desktop integration out of the box.
     </p>
-    <p>
-      <em>Note: This is an unofficial community Flatpak package and is not affiliated with or endorsed by Canonical Ltd.</em>
-    </p>
   </description>
   <launchable type="desktop-id">io.github.vishnudevk.Myna.desktop</launchable>
   <url type="homepage">https://github.com/canonical/myna</url>
