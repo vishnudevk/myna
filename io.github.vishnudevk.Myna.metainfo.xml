@@ -33,6 +33,12 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.3.1-4" date="2026-11-09">
+      <description>
+        <p>Restore IBus text injection and desktop notifications with least-privilege sandbox grants: read-only access to the IBus address file directory, access to the IBus private socket directory, and the freedesktop notifications D-Bus name.</p>
+        <p>Fix settings persistence: GSettings now use the keyfile backend under the app's config directory instead of an ephemeral sandbox path, so changes made in Myna Settings survive restarts.</p>
+      </description>
+    </release>
     <release version="0.3.1-3" date="2026-11-09">
       <description>
         <p>Harden runtime sandbox permissions (offline dictation, PipeWire-only audio, DRI-only device access) and publish SHA-256 release checksums.</p>

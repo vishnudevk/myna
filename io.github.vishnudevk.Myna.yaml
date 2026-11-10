@@ -8,6 +8,11 @@ sdk-extensions:
 command: myna-app
 
 finish-args:
+  # Persist GSettings via the keyfile backend under $XDG_CONFIG_HOME.
+  # Without this, myna-core's store_path() falls back to the snap layout
+  # (HOME/snap/myna/common), which is an ephemeral directory inside the
+  # sandbox — settings written by Myna Settings were lost on restart.
+  - --env=GSETTINGS_BACKEND=keyfile
   - --socket=wayland
   - --socket=fallback-x11
   - --share=ipc
@@ -16,6 +21,12 @@ finish-args:
   - --own-name=com.canonical.Myna.Dictation
   - --talk-name=org.freedesktop.IBus
   - --talk-name=org.freedesktop.IBus.*
+  # IBus text injection: the daemon connects to IBus's private socket,
+  # located via the address file. These two grants are the least-privilege
+  # replacement for the home access removed in the security hardening.
+  - --filesystem=~/.config/ibus/bus:ro
+  - --filesystem=~/.cache/ibus
+  - --talk-name=org.freedesktop.Notifications
   - --filesystem=xdg-run/myna:create
 
 build-options:
